@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhongtao.pinpai.dao.NewMapper">
+	<insert id="add" parameterType="New">
+		insert into new values(null,#{title},#{weit},#{editor},#{author},#{source},#{nkeyword},#{ndescribe},
+								#{time},#{myEditor})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from new where nid=#{nid}
+	</delete>
+	
+	<update id="update" parameterType="New">
+		update new set title=#{title},weit=#{weit},editor=#{editor},author=#{author},
+		source=#{source},nkeyword=#{nkeyword},ndescribe=#{ndescribe},time=#{time},
+		myEditor=#{myEditor} WHERE nid=#{nid}
+	</update>
+	
+	<select id="list" resultType="New">
+		select * from new ORDER BY nid DESC
+	</select>
+	
+	<select id="findById" resultType="New">
+	select * from new where nid=#{nid}
+	</select>
+	
+	<select id="listn" resultType="New">
+		 select * from new order by nid DESC LIMIT 10
+	</select>
+	
+	<select id="newsdetail" resultType="New">
+	select * from new where nid=#{nid}
+	</select>
+</mapper>

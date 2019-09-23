@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhongtao.pinpai.dao.BillboardMapper">
+	<insert id="add" parameterType="Billboard">
+		insert into billboard values(null,#{pname},#{byid},#{btitle},#{bdescription},#{bkeywords})
+	    </insert>
+		
+		<delete id="delete" parameterType="int">
+		delete from billboard where bid=#{bid}
+		</delete>
+		
+		<select id="list" resultType="Billboard">
+		select * from billboard ORDER BY bid DESC
+		</select>
+		
+		<select id="selectById" resultType="Billboard">
+		select * from billboard where byid=#{byid}
+		</select>
+		
+		<select id="findById" resultType="Billboard">
+		select * from billboard where bid=#{bid}
+		</select>
+		
+		<update id="update" parameterType="Billboard">
+		update billboard set pname=#{pname},byid=#{byid},btitle=#{btitle},bdescription=#{bdescription},
+							bkeywords=#{bkeywords} where bid=#{bid}
+		</update>
+		
+		<select id="selectBill" resultType="Billboard">
+		select * from billboard ORDER BY bid DESC limit 1	
+		</select>
+		
+</mapper>

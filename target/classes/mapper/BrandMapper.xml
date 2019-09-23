@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhongtao.pinpai.dao.BrandMapper">
+		  <resultMap type="com.zhongtao.pinpai.bean.Brand" id="BrandMap">
+		  	<id column="pid" jdbcType="INTEGER" property="pid" />
+		    <result column="title" jdbcType="VARCHAR" property="title" />
+		    <result column="title1" jdbcType="VARCHAR" property="title1" />
+		    <result column="description" jdbcType="VARCHAR" property="description" />
+		    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+		    <result column="img" jdbcType="VARCHAR" property="img" />
+		    <result column="href" jdbcType="VARCHAR" property="href" />
+		    <result column="miaoshu" jdbcType="VARCHAR" property="miaoshu" />
+		    <result column="weit" jdbcType="VARCHAR" property="weit" />
+		    <result column="hid" jdbcType="INTEGER" property="hid" />
+		    <result column="yid" jdbcType="INTEGER" property="yid" />
+		    <!-- 指定联合查询出的部门字段的封装 -->
+		    <association property="billboard" javaType="com.zhongtao.pinpai.bean.Billboard">
+		    	<id column="bid" property="bId"/>
+		    	<result column="pname" property="pname"/>
+		    	<result column="byid" property="byid"/>
+		    </association>
+  		  </resultMap>
+	
+		<insert id="add" parameterType="Brand">
+		insert into brand values(null,#{title},#{title1},#{description},#{keywords},#{img},#{alt},#{href},
+								#{miaoshu},#{weit},#{hid},#{yid})
+	    </insert>
+		
+		<delete id="delete" parameterType="int">
+		delete from brand where pid=#{pid}
+		</delete>
+		
+		<select id="list" resultMap="BrandMap">
+		 select brand.pid,brand.title,billboard.pname,brand.img,brand.yid from brand LEFT JOIN
+		 billboard on brand.hid=billboard.bid ORDER BY pid DESC
+		</select>
+		
+		<update id="update" parameterType="Brand">
+		update brand set title=#{title},title1=#{title1},description=#{description},keywords=#{keywords},img=#{img},alt=#{alt},href=#{href},
+						miaoshu=#{miaoshu},weit=#{weit},hid=#{hid},yid=#{yid} where pid=#{pid}
+		</update>
+		
+		<select id="findById" resultType="Brand">
+		select * from brand where pid=#{pid}
+		</select>
+		
+		<select id="findlist" resultType="Brand">
+		select * from brand where yid=#{yid}
+		</select>
+		
+		<select id="pinpailist" resultType="Brand">
+		select * from brand where hid=#{hid}
+		</select>
+		
+		<select id="listp" resultType="Brand">
+		 select * from brand order by pid DESC LIMIT 6
+		</select>
+		
+		<select id="findplist" resultMap="BrandMap">
+		select brand.pid,brand.title,billboard.pname,brand.img,brand.yid from brand LEFT JOIN
+		 billboard on brand.hid=billboard.bid where yid=#{yid} ORDER BY pid DESC
+		</select>
+
+</mapper>
